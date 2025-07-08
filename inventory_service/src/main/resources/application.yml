@@ -1,6 +1,6 @@
 spring:
   application:
-    name: inventory_service
+    name: inventory-service
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,9 +12,12 @@ spring:
       ddl-auto: update
 
 server:
-  port: 8082
+  port: 0
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true

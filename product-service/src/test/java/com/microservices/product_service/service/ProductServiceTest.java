@@ -44,11 +44,7 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        productRequest = ProductRequest.builder()
-                                       .name("iPhone 13")
-                                       .description("iPhone 13 description")
-                                       .price(BigDecimal.valueOf(1200))
-                                       .build();
+        productRequest = new ProductRequest("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
 
         product = Product.builder()
                          .id("1")
@@ -57,12 +53,7 @@ class ProductServiceTest {
                          .price(BigDecimal.valueOf(1200))
                          .build();
 
-        productResponse = ProductResponse.builder()
-                                         .id("1")
-                                         .name("iPhone 13")
-                                         .description("iPhone 13 description")
-                                         .price(BigDecimal.valueOf(1200))
-                                         .build();
+        productResponse = new ProductResponse("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
     }
 
     @Test
@@ -79,9 +70,9 @@ class ProductServiceTest {
         verify(productRepository, times(1)).save(productCaptor.capture());
 
         Product capturedProduct = productCaptor.getValue();
-        assertThat(capturedProduct.getName()).isEqualTo(productRequest.getName());
-        assertThat(capturedProduct.getDescription()).isEqualTo(productRequest.getDescription());
-        assertThat(capturedProduct.getPrice()).isEqualTo(productRequest.getPrice());
+        assertThat(capturedProduct.getName()).isEqualTo(productRequest.name());
+        assertThat(capturedProduct.getDescription()).isEqualTo(productRequest.description());
+        assertThat(capturedProduct.getPrice()).isEqualTo(productRequest.price());
         assertThat(capturedProduct.getId()).isNull(); // ID should be null before save
     }
 
@@ -96,12 +87,8 @@ class ProductServiceTest {
                                   .price(BigDecimal.valueOf(1000))
                                   .build();
 
-        ProductResponse productResponse2 = ProductResponse.builder()
-                                                          .id("2")
-                                                          .name("Samsung Galaxy S24")
-                                                          .description("Latest Samsung flagship")
-                                                          .price(BigDecimal.valueOf(1000))
-                                                          .build();
+        ProductResponse productResponse2 =
+                new ProductResponse("1", "Samsung Galaxy S24", "Latest Samsung flagship", BigDecimal.valueOf(1000));
 
         List<Product> products = Arrays.asList(product, product2);
         when(productRepository.findAll()).thenReturn(products);
@@ -116,10 +103,10 @@ class ProductServiceTest {
         verify(productMapper, times(2)).productToProductResponse(any(Product.class));
 
         assertThat(result).hasSize(2);
-        assertThat(result.get(0).getName()).isEqualTo("iPhone 13");
-        assertThat(result.get(0).getPrice()).isEqualTo(BigDecimal.valueOf(1200));
-        assertThat(result.get(1).getName()).isEqualTo("Samsung Galaxy S24");
-        assertThat(result.get(1).getPrice()).isEqualTo(BigDecimal.valueOf(1000));
+        assertThat(result.get(0).name()).isEqualTo("iPhone 13");
+        assertThat(result.get(0).price()).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(result.get(1).name()).isEqualTo("Samsung Galaxy S24");
+        assertThat(result.get(1).price()).isEqualTo(BigDecimal.valueOf(1000));
     }
 
     @Test
@@ -154,9 +141,9 @@ class ProductServiceTest {
         verify(productMapper, times(1)).productToProductResponse(eq(product));
 
         assertThat(result).hasSize(1);
-        assertThat(result.getFirst().getId()).isEqualTo("1");
-        assertThat(result.getFirst().getName()).isEqualTo("iPhone 13");
-        assertThat(result.getFirst().getDescription()).isEqualTo("iPhone 13 description");
-        assertThat(result.getFirst().getPrice()).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(result.getFirst().id()).isEqualTo("1");
+        assertThat(result.getFirst().name()).isEqualTo("iPhone 13");
+        assertThat(result.getFirst().description()).isEqualTo("iPhone 13 description");
+        assertThat(result.getFirst().price()).isEqualTo(BigDecimal.valueOf(1200));
     }
 }

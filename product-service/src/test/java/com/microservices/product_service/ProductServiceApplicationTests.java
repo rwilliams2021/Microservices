@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @AutoConfigureMockMvc
 class ProductServiceApplicationTests {
@@ -60,11 +60,7 @@ class ProductServiceApplicationTests {
     }
 
     private ProductRequest getProductRequest() {
-        return ProductRequest.builder()
-                             .name("iPhone 13")
-                             .description("iPhone 13 description")
-                             .price(BigDecimal.valueOf(1200))
-                             .build();
+        return new ProductRequest("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
     }
 
     @Test
@@ -78,11 +74,8 @@ class ProductServiceApplicationTests {
                .andExpect(status().isCreated());
 
         // Create a second product
-        ProductRequest productRequest2 = ProductRequest.builder()
-                                                       .name("Samsung Galaxy S24")
-                                                       .description("Latest Samsung flagship")
-                                                       .price(BigDecimal.valueOf(1000))
-                                                       .build();
+        ProductRequest productRequest2 =
+                new ProductRequest("1", "Samsung Galaxy S24", "Latest Samsung flagship", BigDecimal.valueOf(1000));
         String productRequestJson2 = objectMapper.writeValueAsString(productRequest2);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/product")
                                               .contentType(MediaType.APPLICATION_JSON)

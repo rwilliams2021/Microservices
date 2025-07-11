@@ -20,23 +20,24 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public void createProduct(ProductRequest productRequest) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
-                                 .name(productRequest.getName())
-                                 .description(productRequest.getDescription())
-                                 .price(productRequest.getPrice())
+                                 .name(productRequest.name())
+                                 .description(productRequest.description())
+                                 .price(productRequest.price())
                                  .build();
 
         productRepository.save(product);
-        log.info("Created product with name {} and description {}", productRequest.getName(),
-                 productRequest.getDescription());
+        log.info("Created product with name {} and description {}", productRequest.name(),
+                 productRequest.description());
+        return productMapper.productToProductResponse(product);
     }
 
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
 
         return products.stream()
-                .map(productMapper::productToProductResponse)
-                .collect(Collectors.toList());
+                       .map(productMapper::productToProductResponse)
+                       .collect(Collectors.toList());
     }
 }

@@ -29,6 +29,7 @@
         <testcontainers.version>1.21.1</testcontainers.version>
         <flyway.version>11.9.1</flyway.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <rest-assured.version>5.5.5</rest-assured.version>
     </properties>
 
     <dependencyManagement>
@@ -39,6 +40,12 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- REST Assured for API testing -->
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

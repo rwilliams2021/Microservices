@@ -1,14 +1,5 @@
 package com.microservices.order_service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
-import java.util.List;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderRequest {
-    private List<OrderLineItemsDto> orderLineItemsDtoList;
-}
+public record OrderRequest(Long id, String orderNumber, String skuCode, BigDecimal price, Integer quantity) {}

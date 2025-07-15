@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 
@@ -37,7 +37,8 @@ class ProductServiceApplicationTests {
     @Autowired
     private ProductRepository productRepository;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
@@ -60,7 +61,7 @@ class ProductServiceApplicationTests {
     }
 
     private ProductRequest getProductRequest() {
-        return new ProductRequest("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
+        return new ProductRequest("1", "iPhone 13", "iPhone 13 description", "iphone-13", BigDecimal.valueOf(1200));
     }
 
     @Test
@@ -75,7 +76,7 @@ class ProductServiceApplicationTests {
 
         // Create a second product
         ProductRequest productRequest2 =
-                new ProductRequest("1", "Samsung Galaxy S24", "Latest Samsung flagship", BigDecimal.valueOf(1000));
+                new ProductRequest("1", "Samsung Galaxy S24", "Latest Samsung flagship", "samsung-galaxy-s24", BigDecimal.valueOf(1000));
         String productRequestJson2 = objectMapper.writeValueAsString(productRequest2);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/product")
                                               .contentType(MediaType.APPLICATION_JSON)

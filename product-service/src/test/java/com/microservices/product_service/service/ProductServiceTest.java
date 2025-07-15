@@ -44,7 +44,7 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        productRequest = new ProductRequest("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
+        productRequest = new ProductRequest("1", "iPhone 13", "iPhone 13 description", "iphone-13", BigDecimal.valueOf(1200));
 
         product = Product.builder()
                          .id("1")
@@ -53,7 +53,7 @@ class ProductServiceTest {
                          .price(BigDecimal.valueOf(1200))
                          .build();
 
-        productResponse = new ProductResponse("1", "iPhone 13", "iPhone 13 description", BigDecimal.valueOf(1200));
+        productResponse = new ProductResponse("1", "iPhone 13", "iPhone 13 description", "iphone-13", BigDecimal.valueOf(1200));
     }
 
     @Test
@@ -88,7 +88,7 @@ class ProductServiceTest {
                                   .build();
 
         ProductResponse productResponse2 =
-                new ProductResponse("1", "Samsung Galaxy S24", "Latest Samsung flagship", BigDecimal.valueOf(1000));
+                new ProductResponse("1", "Samsung Galaxy S24", "Latest Samsung flagship", "samsung-galaxy-s24", BigDecimal.valueOf(1000));
 
         List<Product> products = Arrays.asList(product, product2);
         when(productRepository.findAll()).thenReturn(products);

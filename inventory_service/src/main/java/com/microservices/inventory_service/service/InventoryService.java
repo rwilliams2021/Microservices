@@ -13,6 +13,6 @@ public class InventoryService {
 
     @Transactional(readOnly = true)
     public boolean isInStock(String skuCode, Integer quantity) {
-        return inventoryRepository.existsBySkuCodeInAndQuantityGreaterThanEqual(skuCode, quantity);
+        return inventoryRepository.existsBySkuCodeAndQuantityGreaterThanEqual(skuCode, quantity);
     }
 }

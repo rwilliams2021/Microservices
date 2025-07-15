@@ -24,6 +24,7 @@ public class ProductService {
         Product product = Product.builder()
                                  .name(productRequest.name())
                                  .description(productRequest.description())
+                                 .skuCode(productRequest.skuCode())
                                  .price(productRequest.price())
                                  .build();
 

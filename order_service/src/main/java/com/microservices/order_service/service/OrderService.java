@@ -31,7 +31,9 @@ public class OrderService {
             orderRepository.save(order);
         }
         else {
-            throw new IllegalArgumentException("Product with skuCode " + orderRequest.skuCode() + " is not in stock");
+            throw new IllegalArgumentException(
+                    "Product with skuCode " + orderRequest.skuCode() + " is not in stock" + "for quantity " +
+                    orderRequest.quantity());
         }
     }
 }

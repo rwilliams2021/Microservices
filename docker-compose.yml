@@ -14,7 +14,7 @@ services:
     networks:
       - microservices-network
 
-  # MySQL for Order Service
+  # MySQL for Inventory Service
   inventory-mysql:
     image: mysql:8.0
     container_name: inventory-service-mysql

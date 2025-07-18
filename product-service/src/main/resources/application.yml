@@ -5,6 +5,15 @@ spring:
     mongodb:
       uri: mongodb://admin:admin123@localhost:27017/product-service?authSource=admin
 
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
 eureka:
   client:
     serviceUrl:

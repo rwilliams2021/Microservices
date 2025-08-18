@@ -36,7 +36,7 @@ public class OrderService {
             orderRepository.save(order);
 
             OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent(order.getOrderNumber(),
-                                                                     orderRequest.userDetails().email());
+                                                                     "email");
             log.info("Start - sending OrderPlacedEvent {} to kafka topic order-placed-event", orderPlacedEvent);
             kafkaTemplate.send("order-placed-event", orderPlacedEvent);
             log.info("End - sending OrderPlacedEvent {} to kafka topic order-placed-event", orderPlacedEvent);
